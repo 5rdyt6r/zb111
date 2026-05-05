@@ -554,4 +554,24 @@ with gr.Blocks(title="IndexTTS Demo") as demo:
 
 if __name__ == "__main__":
     demo.queue(20)
-    demo.launch(server_name=cmd_args.host, server_port=cmd_args.port)
+    
+    # 导入需要的库
+    import webbrowser
+    import threading
+    import time
+    
+    # 定义打开浏览器的函数
+    def open_browser():
+        # 等待一段时间确保服务完全启动
+        time.sleep(5)
+        webbrowser.open(f"http://127.0.0.1:{cmd_args.port}")
+    
+    # 在新线程中打开浏览器，避免阻塞服务启动
+    browser_thread = threading.Thread(target=open_browser)
+    browser_thread.daemon = True
+    browser_thread.start()
+    
+    # 显示正确的访问地址给用户
+    print(f"Running on local URL:  http://127.0.0.1:{cmd_args.port}")
+
+    demo.launch(server_name=cmd_args.host, server_port=cmd_args.port, quiet=True)

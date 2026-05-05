@@ -69,7 +69,7 @@ webui = [
 ]
 # To install the DeepSpeed support, use `uv sync --extra deepspeed` (or `--all-extras`).
 deepspeed = [
-  "deepspeed==0.17.1",
+  "deepspeed"
 ]
 
 [project.urls]
@@ -85,6 +85,9 @@ indextts = "indextts.cli:main"
 # NOTE: Use `uv tool install -e .` to install the package as a CLI tool.
 requires = ["hatchling >= 1.27.0"]
 build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.uv]
 # Disable build isolation when building DeepSpeed from source.
@@ -107,6 +110,8 @@ torchaudio = [
 torchvision = [
   { index = "pytorch-cuda", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
 ]
+# Add DeepSpeed source
+deepspeed = { path = "./deepspeed-0.17.1+2ce55057-cp310-cp310-win_amd64.whl" }
 
 [[tool.uv.index]]
 name = "pytorch-cuda"
